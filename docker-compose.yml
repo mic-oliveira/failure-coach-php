@@ -1,0 +1,4 @@
+version: '3.1'
+services:
+  php:
+    image: aronpc/php:7.2-nginx
