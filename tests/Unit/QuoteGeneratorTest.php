@@ -7,6 +7,10 @@ use Michaelferreira\FailureCoach\Quotes;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\assertEquals;
 
+
+/**
+ * @covers
+ */
 class QuoteGeneratorTest extends TestCase
 {
     public function test_generate_random_quote()
