@@ -1,4 +1,7 @@
 version: '3.1'
 services:
   php:
-    image: aronpc/php:7.2-nginx
+    image: aronpc/php:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
