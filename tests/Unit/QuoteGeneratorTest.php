@@ -5,6 +5,7 @@ namespace Unit;
 use Michaelferreira\FailureCoach\QuoteGenerator;
 use Michaelferreira\FailureCoach\Quotes;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class QuoteGeneratorTest extends TestCase
 {
@@ -13,7 +14,7 @@ class QuoteGeneratorTest extends TestCase
         $quotes = new Quotes();
         $quotes->setQuotes(['Wisdom quote of failure.']);
         $quote = new QuoteGenerator($quotes);
-        $this->assertNotNull($quote);
+        $this->assertIsString($quote->wisdomQuote());
     }
 
     public function test_can_get_specific_quote()
@@ -31,5 +32,12 @@ class QuoteGeneratorTest extends TestCase
         $quote = new QuoteGenerator(new Quotes());
         $this->expectException(\Throwable::class);
         $quote->wisdomQuote(99);
+    }
+
+    public function test_should_change_language_and_load_from_i18n()
+    {
+        $quote = new QuoteGenerator(new Quotes());
+        assertEquals('It was never bad luck, it was always incompetence.', $quote->setLang('en')->wisdomQuote(0));
+        assertEquals('It was never bad luck, it was always incompetence.', $quote->wisdomQuote(0, "en"));
     }
 }

@@ -14,14 +14,12 @@ class QuoteGenerator
     public function __construct(QuoteInterface $quote)
     {
         $this->quote = $quote;
-        $this->lang = 'pt-br';
-        $this->quotes();
     }
 
     /**
      * @throws Exception
      */
-    public function setLang(string $lang)
+    public function setLang(string $lang = null): QuoteGenerator
     {
         switch ($lang) {
             case 'pt':
@@ -32,12 +30,16 @@ class QuoteGenerator
             break;
             default: throw new Exception('Language not implemented.');
         }
-        $this->quotes();
+        $this->loadQuotes();
+        return $this;
     }
 
-    private function quotes()
+    private function loadQuotes()
     {
         $lang = $this->lang ?? 'pt-br';
+        if (!file_exists(__DIR__.'/I18n/'.$lang.'.json')) {
+            throw new Exception("Quote file not found.");
+        }
         $quotes = json_decode(file_get_contents(__DIR__.'/I18n/'.$lang.'.json'), true)['quotes'];
         $this->quote->setQuotes($quotes);
     }
@@ -45,8 +47,11 @@ class QuoteGenerator
     /**
      * @throws Exception
      */
-    public function wisdomQuote(int $index = null): string
+    public function wisdomQuote(int $index = null, string $lang = 'pt'): string
     {
+        if (empty($this->lang)) {
+            $this->setLang($lang);
+        }
         if ($index > count($this->quote->getQuotes())) {
             throw new Exception("Quote not exists");
         }
