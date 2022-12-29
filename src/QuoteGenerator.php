@@ -34,7 +34,7 @@ class QuoteGenerator
         return $this;
     }
 
-    private function loadQuotes()
+    protected function loadQuotes()
     {
         $lang = $this->lang ?? 'pt-br';
         if (!file_exists(__DIR__.'/I18n/'.$lang.'.json')) {
