@@ -9,4 +9,6 @@ interface QuoteInterface
     public function getQuote(): string;
 
     public function getQuotes(): array;
+
+    public function hasIndex(int $index);
 }

@@ -13,7 +13,7 @@ class QuoteGeneratorTest extends TestCase
         $quotes = new Quotes();
         $quotes->setQuotes(['Wisdom quote of failure.']);
         $quote = new QuoteGenerator($quotes);
-        $this->assertEquals('Wisdom quote of failure.', $quote->wisdomQuote());
+        $this->assertNotNull($quote);
     }
 
     public function test_can_get_specific_quote()
@@ -23,13 +23,13 @@ class QuoteGeneratorTest extends TestCase
         $quotes->setQuotes($quotesFromFile);
         $quote = new QuoteGenerator($quotes);
         $this->assertEquals('Nunca foi azar, sempre foi incompetência.', $quote->wisdomQuote(0));
-        $this->assertEquals('Você é o maior problema das suas soluções.', $quote->wisdomQuote(1));
+        $this->assertEquals('Você é o maior problema das suas soluções.', $quote->wisdomQuote(2));
     }
 
     public function test_should_throw_type_error()
     {
         $quote = new QuoteGenerator(new Quotes());
-        $this->expectException(\Error::class);
-        $quote->wisdomQuote(0);
+        $this->expectException(\Throwable::class);
+        $quote->wisdomQuote(99);
     }
 }
