@@ -14,9 +14,9 @@ class QuoteGenerator
 
     public function wisdomQuote(int $index = null): string
     {
-        if ($index) {
-            return $this->quote->getQuotes()[$index];
+        if (is_null($index)) {
+            return $this->quote->getQuote();
         }
-        return $this->quote->getQuote();
+        return $this->quote->getQuotes()[$index];
     }
 }
